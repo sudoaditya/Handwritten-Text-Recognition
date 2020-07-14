@@ -62,8 +62,6 @@ CTC loss is very helpful in text recognition problems. It helps us to prevent an
 
 A CTC loss function requires four arguments to compute the loss, predicted outputs, ground truth labels, input sequence length to LSTM and ground truth label length. To get this we need to create a custom loss function and then pass it to the model. 
 
-To make it compatible with our model, we will create a model which takes these four inputs and outputs the loss. This model will be used for training and for testing we will use the model that we have created earlier “act_model”.
-
 ## Output
 <p>
 <img src="./media/crnnoutput.png">
