@@ -21,7 +21,7 @@ Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. It is also us
 <hr>
 
 ## For offline handwrritten text we use CRNN model.
- <b>Model = CNN + RNN + CTC loss</b>
+
 
 ### Dataset used: **[IAM Dataset](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database/download-the-iam-handwriting-database)**
 >For downloading this dataset you need to create an account.
@@ -31,6 +31,8 @@ Dataset used to here to train model **[words.tgz](http://www.fki.inf.unibe.ch/DB
 <br/>
 
 ### Model Overview.
+<b>Model = CNN + RNN + CTC loss</b>
+
 Model consists of <b>three</b> parts:
 
 * The convolutional neural network to extract features from the image.
