@@ -1,9 +1,11 @@
 # Optical Character Recognition (OCR)
 OCR systems have two categories: online, in which input information is obtained through real-time writing sensors; and offline, in which input information is obtained through static information (images).
-<hr>
+
 <p align="center">
 <img src="./media/type.png">
 </p>
+
+<hr>
 
 ## For offline typed text we use PyTesseract.
 Python-tesseract is an optical character recognition (OCR) tool for python. That is, it will recognize and “read” the text embedded in images.
@@ -17,3 +19,5 @@ Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. It is also us
 <p align="center">
 <img width="400" src="./media/ocroutput.png">
 </p>
+<br/>
+<hr>
