@@ -15,10 +15,9 @@ Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. It is also us
 </p>
 
 ## Output
-<p align="center">
-<img width="400" src="./media/ocroutput.png">
+<p>
+<img width="500" src="./media/ocroutput.png">
 </p>
-<br/>
 <hr>
 
 ## For offline handwrritten text we use CRNN model.
@@ -28,3 +27,37 @@ Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. It is also us
 >For downloading this dataset you need to create an account.
 
 Dataset used to here to train model **[words.tgz](http://www.fki.inf.unibe.ch/DBs/iamDB/data/words/)**
+
+<br/>
+
+### Model Overview.
+Model consists of <b>three</b> parts:
+
+* The convolutional neural network to extract features from the image.
+
+* Recurrent neural network to predict sequential output per time-step.
+
+* CTC loss function which is transcription layer used to predict output for each time step. 
+</br>
+
+### Model Architecture.
+<p>
+<img height="700" src="./media/model.png">
+</p>
+
+>This network architecture is inspired by **[this](https://arxiv.org/pdf/1507.05717.pdf)** paper. 
+
+#### Steps used to create the architecture:
+* Input shape for our architecture having an input image of height 32 and width 128.
+* Here we used seven convolution layers of which 6 are having kernel size (3,3) and the last one is of size (2.2). And the number of filters is increased from 64 to 512 layer by layer.
+* Two max-pooling layers are added with size (2,2) and then two max-pooling layers of size (2,1) are added to extract features with a larger width to predict long texts.
+* Also, we used batch normalization layers after fifth and sixth convolution layers which accelerates the training process.
+* Then we used a lambda function to squeeze the output from conv layer and make it compatible with LSTM layer.
+* Then used two Bidirectional LSTM layers. This RNN layer gives the output of size (batch_size, 31, 79),here 79 is the total number of output classes including blank character.
+
+#### Loss Function.
+CTC loss is very helpful in text recognition problems. It helps us to prevent annotating each time step and help us to get rid of the problem where a single character can span multiple time step which needs further processing if we do not use CTC.
+
+A CTC loss function requires four arguments to compute the loss, predicted outputs, ground truth labels, input sequence length to LSTM and ground truth label length. To get this we need to create a custom loss function and then pass it to the model. 
+
+To make it compatible with our model, we will create a model which takes these four inputs and outputs the loss. This model will be used for training and for testing we will use the model that we have created earlier “act_model”.
